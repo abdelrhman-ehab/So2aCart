@@ -202,7 +202,7 @@ export default function Cart() {
                                         </AlertDialogHeader>
                                         <AlertDialogFooter>
                                             <AlertDialogCancel>Cancel Checkout</AlertDialogCancel>
-                                            <AlertDialogAction onClick={() => { checkout(cartData?.cartId, checkoutDetails.current.value, checkoutPhoneNumber.current.value, checkoutCity.current.value) }}>{chekingOut + ''}</AlertDialogAction>
+                                            <AlertDialogAction onClick={() => { checkout(cartData?.cartId, checkoutDetails.current.value, checkoutPhoneNumber.current.value, checkoutCity.current.value) }}>{chekingOut ? <Loader2 className='animate-spin' /> : 'Visa'}</AlertDialogAction>
                                         </AlertDialogFooter>
                                     </AlertDialogContent>
                                 </AlertDialog>
