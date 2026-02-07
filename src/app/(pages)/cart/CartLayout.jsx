@@ -92,7 +92,7 @@ export default function CartLayout({ cartData, getCartDataError, updateCart, isU
                                         </AlertDialogHeader>
                                         <AlertDialogFooter>
                                             <AlertDialogCancel>Cancel Checkout</AlertDialogCancel>
-                                            <AlertDialogAction onClick={() => { checkout(cartData?.cartId, checkoutDetails.current.value, checkoutPhoneNumber.current.value, checkoutCity.current.value) }}>{checkoutLoading ? <Loader2 className='animate-spin' /> : 'Visa'}</AlertDialogAction>
+                                            <AlertDialogAction onClick={() => { checkout({ cartId: cartData?.cartId, checkoutDetails: checkoutDetails.current.value, checkoutPhoneNumber: checkoutPhoneNumber.current.value, checkoutCity: checkoutCity.current.value }) }}>{checkoutLoading ? <Loader2 className='animate-spin' /> : 'Visa'}</AlertDialogAction>
                                         </AlertDialogFooter>
                                     </AlertDialogContent>
                                 </AlertDialog>
