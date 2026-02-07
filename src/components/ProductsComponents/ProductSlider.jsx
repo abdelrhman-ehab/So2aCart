@@ -20,7 +20,7 @@ export default function ProductSlider({ product }) {
                     <CarouselItem className={'rounded-lg'} key={index}>
                         <Card className={''}>
                             <CardContent className="flex items-center justify-center p-2">
-                                <Image className="p-0 w-1/2 md:w-full md:p-5 xl:w-3/4 xl:p-0 object-cover" width={500} height={500} src={img} alt={`product-image-${index}`} />
+                                <Image className="p-0 w-full min-w-40 max-w-70 md:w-full xl:p-0 object-cover rounded-lg" unoptimized width={500} height={500} src={img} alt={`product-image-${index}`} />
                             </CardContent>
                         </Card>
                     </CarouselItem>

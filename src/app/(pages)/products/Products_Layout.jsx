@@ -2,8 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { Card } from "@/components/ui/card"
 import { IoStarSharp } from "react-icons/io5";
-import AddToCart from './AddToCart';
 import Loading from '@/app/loading';
+import WishlistButton from '@/components/ProductsComponents/WishlistButton';
+import CartButton from '@/components/ProductsComponents/CartButton';
 
 export default function Products_Layout({ products }) {
     return <>
@@ -32,7 +33,10 @@ export default function Products_Layout({ products }) {
                                 <p className='line-clamp-1 font-semibold text-lg'><span className='text-red-900'>{product.price}$</span></p>
                             </div>
                         </Link>
-                        <AddToCart productId={product._id} />
+                        <div className='flex items-center gap-2'>
+                            <CartButton productId={product._id} />
+                            <WishlistButton productId={product._id} />
+                        </div>
                     </Card>
                 )}
             </div> :

@@ -1,4 +1,4 @@
-import Products_Layout from '@/components/ProductsComponents/Products_Layout';
+import Products_Layout from '@/app/(pages)/products/Products_Layout';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React from 'react'

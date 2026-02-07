@@ -1,5 +1,5 @@
 import React from 'react'
-import Products_Layout from '../../../components/ProductsComponents/Products_Layout';
+import Products_Layout from './Products_Layout';
 
 export default async function Products() {
     // get products

@@ -2,8 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import { Toaster } from "@/components/ui/sonner"
-import CartContextProvider from "@/Context/CartContext/CartContextProvider";
 import Footer from "@/components/Footer/Footer";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,14 +26,14 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <CartContextProvider>
+        <ReactQueryProvider>
           <Navbar />
           <div className="container my-7">
             {children}
             <Toaster />
           </div>
           <Footer />
-        </CartContextProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
