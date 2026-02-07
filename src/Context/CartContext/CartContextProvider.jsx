@@ -9,7 +9,6 @@ export default function CartContextProvider({ children }) {
     const [cartData, setCartData] = useState(null)
     const [cartDataLoading, setCartDataLoading] = useState(false)
     const [getCartError, setGetCartError] = useState(false)
-
     // get cart products
     const getCartProducts = async () => {
         setCartDataLoading(true)
@@ -17,6 +16,9 @@ export default function CartContextProvider({ children }) {
             const response = await getApiData('cart')
             if (response.status == 'success') {
                 setCartData(response)
+                if (response.data.cartOwner) {
+                    localStorage.setItem('SOCartUserId', response?.data?.cartOwner)
+                }
                 console.log(response);
             }
             else {

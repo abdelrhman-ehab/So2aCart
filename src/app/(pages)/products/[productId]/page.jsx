@@ -2,19 +2,24 @@ import { IoStarSharp } from "react-icons/io5";
 import { Card } from "@/components/ui/card"
 import ProductSlider from "../../../../components/ProductsComponents/ProductSlider";
 import AddToCart from "@/components/ProductsComponents/AddToCart";
+import Loading from "@/app/loading";
 
 
 export default async function ProductInfo({ params }) {
     const { productId } = await params
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products/${productId}`)
     const { data: product } = await response.json()
+    console.log(productId);
+    console.log(product);
+
 
     return <>
-        <Card className="grid grid-cols-12 gap-10 p-5">
-            <div className="col-span-12 md:col-span-4 product-cover flex justify-center items-center">
+        {product ? <Card className="p-5 flex flex-wrap">
+            <div className="w-full md:w-1/3 product-cover flex justify-center items-center">
                 <ProductSlider product={product} />
             </div>
-            <div className="col-span-12 md:col-span-8 product-info flex flex-col justify-center gap-3">
+            <div className="product-info w-full md:w-2/3 flex flex-col gap-3">
                 <div>
                     <p className="text-gray-500 text-sm font-mono">{product.brand.name}</p>
                     <p className="text-lg font-semibold">{product.title}</p>
@@ -43,7 +48,8 @@ export default async function ProductInfo({ params }) {
                 <AddToCart productId={productId} />
             </div>
         </Card>
-
+            : <Loading />
+        }
     </>
 
 }

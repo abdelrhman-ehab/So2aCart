@@ -138,7 +138,7 @@ p {
   height: 48px;
   border-radius: 50%;
   display: inline-block;
-  border-top: 4px solid #000000 !important;
+  @apply border-t-4 border-t-purple-600;
   border-right: 4px solid transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
@@ -153,7 +153,7 @@ p {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border-left: 4px solid #1a547e;
+  @apply border-l-4 border-l-indigo-600;
   border-bottom: 4px solid transparent;
   animation: rotation 0.5s linear infinite reverse;
 }

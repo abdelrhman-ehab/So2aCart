@@ -1,6 +1,6 @@
 "use client"
-import ErrorPage from '@/app/ErrorPage'
 import Loading from '@/app/loading'
+import { GoTrash } from "react-icons/go";
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { CartContext } from '@/Context/CartContext/CartContext'
@@ -58,8 +58,8 @@ export default function Cart() {
         )
         const response = await res.json()
         console.log(response);
-        if (response.status) {
-            setCartData(response.data)
+        if (response.status == 'success') {
+            setCartData(response)
         }
         else {
             toast.error('Faild To Update Count', { position: 'top-center' })
@@ -71,8 +71,8 @@ export default function Cart() {
         setRemovingId(productID)
         const response = await removingDataFromApi('cart', productID)
         console.log(response);
-        if (response.status) {
-            setCartData(response.data)
+        if (response.status == 'success') {
+            setCartData(response)
             toast.success('Item Removed Successfully', { position: 'top-center' })
         }
         else {
@@ -144,32 +144,45 @@ export default function Cart() {
                 </div>
             </div> :
             <section>
-                <h1 className='text-3xl font-semibold'>Shopping Cart</h1>
+                <h1 className="relative text-4xl font-bold mb-3 text-indigo-600
+               after:content-['']
+               after:absolute
+               after:left-0
+               after:-bottom-3
+               after:w-18
+               after:h-1
+               after:bg-linear-to-r
+               after:from-indigo-600
+               after:to-purple-600
+               after:rounded">
+                    Shopping Cart
+                </h1>
                 <p className='text-gray-400'>{cartData?.data?.numOfCartItems} items in your cart</p>
-                <div className='flex gap-5 mt-5'>
-                    <div className="products w-2/3 space-y-4">
+                <div className='flex flex-wrap gap-5 lg:flex-nowrap mt-10'>
+                    <div className="products w-full lg:w-2/3 space-y-4">
                         {cartData?.data?.products?.map(product =>
                             <Card key={product._id} className={'p-4 flex flex-row gap-4 rounded-lg'}>
                                 <Image className='w-20 object-cover' src={product.product.imageCover} width={400} height={400} alt='image' />
                                 <div className='w-full shrink space-y-2'>
                                     <div className='flex items-center justify-between'>
-                                        <p className='line-clamp-1'>{product.product.title}</p>
-                                        <p className='ps-10'>{product.price} EGP</p>
+                                        <p className='line-clamp-1 w-2/3'>{product.product.title}</p>
+                                        <p className='w-1/3 text-end'>{product.price} EGP</p>
                                     </div>
-                                    <p>{product.product.brand.name} - {product.product.category.name}</p>
+                                    <p className='line-clamp-1 text-gray-500'>{product.product.brand.name} - {product.product.category.name}</p>
                                     <div className='flex items-center justify-between mt-3'>
-                                        <div className='flex items-center gap-3'>
-                                            <Button disabled={product.count == 1} onClick={() => { updateCount(product.product._id, product.count - 1) }} className='size-9 rounded-md text-black text-xl font-semibold bg-transparent border border-black/30 px-6 py-1 hover:bg-black/30 hover:text-white cursor-pointer'>-</Button>
+                                        <div className='flex items-center gap-2 sm:gap-3'>
+                                            <Button disabled={product.count == 1} onClick={() => { updateCount(product.product._id, product.count - 1) }} className='w-fit rounded-md text-black text-xl font-semibold bg-transparent border border-black/30 hover:bg-black/30 hover:text-white cursor-pointer'>-</Button>
                                             <p>{product.count}</p>
-                                            <Button onClick={() => { updateCount(product.product._id, product.count + 1) }} className='size-9 rounded-md text-black bg-transparent border border-black/30 px-6 py-1 hover:bg-black/30 hover:text-white cursor-pointer'>+</Button>
+                                            <Button onClick={() => { updateCount(product.product._id, product.count + 1) }} className='w-fit rounded-md text-black bg-transparent border border-black/30  hover:bg-black/30 hover:text-white cursor-pointer'>+</Button>
                                         </div>
-                                        <Button disabled={removingId == product.product._id} onClick={() => { removeFromCart(product.product._id) }} className={'bg-red-900 text-white cursor-pointer px-3 py-1 rounded-md hover:bg-white hover:text-red-900 hover:border hover:border-red-900'}>{removingId == product.product._id ? <Loader2 className='animate-spin' /> : 'Remove Item'}</Button>
+                                        <Button disabled={removingId == product.product._id} onClick={() => { removeFromCart(product.product._id) }} className={'bg-red-900 text-white cursor-pointer px-3 py-1 rounded-md hover:bg-white hover:text-red-900 hover:border hover:border-red-900 hidden sm:block'}>{removingId == product.product._id ? <Loader2 className='animate-spin' /> : 'Remove Item'}</Button>
+                                        <GoTrash className='text-2xl text-red-900 block sm:hidden' disabled={removingId == product.product._id} onClick={() => { removeFromCart(product.product._id) }} />
                                     </div>
                                 </div>
                             </Card>
                         )}
                     </div>
-                    <Card className="orderSummary w-1/3 p-4 rounded-lg h-fit">
+                    <Card className="orderSummary w-full lg:w-1/3 p-2 sm:p-4 rounded-lg h-fit">
                         <div className='space-y-3'>
                             <h2 className='text-2xl font-medium'>Order Summary</h2>
                             <div className='flex items-center justify-between'>

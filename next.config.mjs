@@ -6,9 +6,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'ecommerce.routemisr.com',
-        port: '',
-        pathname: '/Route-Academy-products/**',
-        search: '',
+        pathname: '/**',
       },
     ],
   },

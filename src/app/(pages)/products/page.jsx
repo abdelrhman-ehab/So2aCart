@@ -10,6 +10,19 @@ export default async function Products() {
     })
     const { data: products } = await response.json()
     return <>
+        <h1 className="relative text-4xl font-bold mb-10 text-indigo-600
+               after:content-['']
+               after:absolute
+               after:left-0
+               after:-bottom-3
+               after:w-18
+               after:h-1
+               after:bg-linear-to-r
+               after:from-indigo-600
+               after:to-purple-600
+               after:rounded">
+            Products
+        </h1>
         <Products_Layout products={products} />
     </>
 }
