@@ -24,21 +24,21 @@ export default function NavbarLayout({ cartData }) {
             <div className="container flex justify-between items-center">
                 <div className="brand">
                     <Link className='flex items-center gap-1' href={'/'}>
-                        <span className='bg-linear-to-r from-indigo-600 to-purple-600 p-1.5 text-white rounded-md text-xl font-medium me-0.5 mb-1'><FaOpencart /></span>
-                        <span className='text-2xl font-medium text-black italic'>SoCart</span>
+                        <span className='bg-linear-to-r from-indigo-800 to-purple-800 p-1.5 text-white rounded-md text-xl font-medium me-0.5 mb-1'><FaOpencart /></span>
+                        <span className='text-2xl font-bold text-black italic'>SoCart</span>
                     </Link>
                 </div>
-                <div className="navLinks sm:flex items-center gap-4 text-md font-medium hidden">
-                    <Link href={'/products'} className={pathName.includes('/products') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md' : ''}>
+                <div className="navLinks sm:flex items-center gap-4 text-md font-bold hidden">
+                    <Link href={'/products'} className={pathName.includes('/products') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
                         <span>Products</span>
                     </Link>
-                    <Link href={'/brands'} className={pathName.includes('/brands') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md' : ''}>
+                    <Link href={'/brands'} className={pathName.includes('/brands') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
                         <span>Brands</span>
                     </Link>
-                    <Link href={'/categories'} className={pathName.includes('/categories') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md' : ''}>
+                    <Link href={'/categories'} className={pathName.includes('/categories') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
                         <span>Categories</span>
                     </Link>
-                    <Link href={'/wishlist'} className={pathName.includes('/wishlist') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md' : ''}>
+                    <Link href={'/wishlist'} className={pathName.includes('/wishlist') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
                         <span>Wishlist</span>
                     </Link>
                 </div>
@@ -46,7 +46,7 @@ export default function NavbarLayout({ cartData }) {
                     <Link href={'/cart'}>
                         <span className='relative'>
                             <FaOpencart className='text-2xl mt-0.5' />
-                            {cartData?.numOfCartItems != null ? <span className='size-5 p-2 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-full text-[10px] font-mono absolute -top-3 -right-3 flex justify-center items-center'>{cartData?.numOfCartItems}</span> : null}
+                            {cartData?.numOfCartItems != null ? <span className='size-5 p-2 bg-linear-to-r from-indigo-800 to-purple-800 text-white rounded-full text-[10px] font-mono absolute -top-3 -right-3 flex justify-center items-center'>{cartData?.numOfCartItems}</span> : null}
                         </span>
 
                     </Link>

@@ -9,14 +9,14 @@ import CartButton from '@/components/ProductsComponents/CartButton';
 export default function Products_Layout({ products }) {
     return <>
         {products ?
-            <div className="products-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="products-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {products.map(product =>
                     <Card key={product._id} className='p-3'>
                         <Link href={`/products/${product._id}`} className='space-y-3'>
-                            <div className="product-image">
-                                {product.imageCover ? <Image src={product.imageCover} alt='image' height={'400'} width={'400'} className='w-full object-cover max-h-70' /> : ''}
+                            <div className="product-image overflow-hidden">
+                                {product.imageCover ? <Image src={product.imageCover} alt='image' height={'400'} width={'400'} className='w-full rounded-lg object-contain max-h-70' /> : ''}
                             </div>
-                            <div className="product-info">
+                            <div className="product-info flex flex-col gap-2">
                                 <p className='text-gray-600 text-sm'>{product.brand.name}</p>
                                 <p className='line-clamp-1 font-semibold text-lg'>{product.title}</p>
                                 <p className='text-gray-600 text-sm'>{product.category.name}</p>
@@ -33,7 +33,7 @@ export default function Products_Layout({ products }) {
                                 <p className='line-clamp-1 font-semibold text-lg'><span className='text-red-900'>{product.price}$</span></p>
                             </div>
                         </Link>
-                        <div className='flex items-center gap-2'>
+                        <div className='flex flex-col items-center gap-3'>
                             <CartButton productId={product._id} />
                             <WishlistButton productId={product._id} />
                         </div>

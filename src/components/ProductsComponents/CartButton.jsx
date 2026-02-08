@@ -38,6 +38,6 @@ export default function CartButton({ productId }) {
     })
 
     return <>
-        <Button onClick={() => { addProductToCart(productId) }} className={'flex items-center w-full shrink cursor-pointer'}>{addingProductLoading ? '' : <FaOpencart />}{addingProductLoading ? <Loader2 className='animate-spin' /> : 'Add To Cart'}</Button>
+        <Button onClick={() => { addProductToCart(productId) }} className={'flex items-center w-full shrink cursor-pointer bg-linear-to-r from-indigo-800 to-purple-800 hover:bg-linear-to-r hover:from-indigo-700 hover:to-purple-700 transition-colors duration-300 '}>{addingProductLoading ? '' : <FaOpencart />}{addingProductLoading ? <Loader2 className='animate-spin' /> : 'Add To Cart'}</Button>
     </>
 }

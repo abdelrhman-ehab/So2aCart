@@ -5,7 +5,7 @@ export default async function Home() {
     <main className="min-h-screen bg-gray-50">
 
       {/* Hero Section */}
-      <section className="bg-linear-to-r from-indigo-600 to-purple-600 rounded-lg text-white">
+      <section className="bg-linear-to-r from-indigo-800 to-purple-800 rounded-lg text-white">
         <div className="py-15 flex justify-center items-center gap-3 flex-col px-5">
           <h1 className="text-4xl md:text-6xl font-bold">Discover Your Style</h1>
           <p className="text-lg md:text-xl text-indigo-100">Shop the latest products from top brands at the best prices</p>

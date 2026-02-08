@@ -55,10 +55,10 @@ export const updateCartApi = async (productId, count) => {
         }
     )
     const response = await res.json()
+    console.log(`update data: `, response);
     if (!res.ok || response.statusMsg === 'error') {
         throw new Error(response.message || 'Failed to update cart')
     }
-    console.log(`update ${endPoint} data: `, response);
     return response
 }
 
@@ -74,6 +74,9 @@ export const removingDataFromApi = async (endPoint, productId) => {
     )
     const response = await res.json()
     console.log(`remove ${endPoint} data: `, response);
+    if (!res.ok || response.statusMsg === 'error') {
+        throw new Error(response.message || 'Failed to update cart')
+    }
     return response
 }
 

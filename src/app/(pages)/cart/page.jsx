@@ -12,13 +12,15 @@ export default function Cart() {
     const [isRemovingItem, setIsRemovingItem] = useState(null)
     const [isUpdatingItem, setIsUpdatingItem] = useState(null)
     // get cart data
-    const { data: cartData, error: getCartDataError } = useQuery({
+    const { data: cartData, isLoading: fetchingCartData } = useQuery({
         queryKey: ["get-cart-data"],
         queryFn: () => getApiData('cart'),
-        staleTime: 1000 * 60 * 5,
         retry: 2,
         retryDelay: 1000 * 2,
+        refetchOnWindowFocus: false
     })
+
+    console.log(fetchingCartData)
 
 
     // updating cart item count
@@ -27,13 +29,17 @@ export default function Cart() {
             setIsUpdatingItem(productId)
             return updateCartApi(productId, count)
         },
-        onSuccess: () => {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ["get-cart-data"]
+            })
             toast.success('Product Updated Successfully', { position: 'top-center' })
             setIsUpdatingItem(null)
         },
-        onError: () => {
+        onError: (e) => {
             toast.error('Faild To Update Product', { position: 'top-center' })
             setIsUpdatingItem(null)
+            console.log('error from updating cart: ', e);
         }
     })
 
@@ -81,16 +87,17 @@ export default function Cart() {
             }
             return checkoutApi(cartId, shippingAddress)
         },
-        onSuccess: () => {
+        onSuccess: (data) => {
             toast.success('checkout success')
-            window.location.href = response.session.url;
+            window.location.href = data.session.url;
         },
-        onError: () => {
+        onError: (e) => {
+            console.log('error from checkout: ', e);
             toast.error('checkout faild! please try again')
         }
     })
 
     return <>
-        <CartLayout cartData={cartData} getCartDataError={getCartDataError?.message} updateCart={updateCart} isUpdatingItem={isUpdatingItem} removeFromCart={removeFromCart} isRemovingItem={isRemovingItem} clearCart={clearCart} clearingCartLoading={clearingCartLoading} checkout={checkout} checkoutLoading={checkoutLoading} />
+        <CartLayout cartData={cartData} fetchingCartData={fetchingCartData} updateCart={updateCart} isUpdatingItem={isUpdatingItem} removeFromCart={removeFromCart} isRemovingItem={isRemovingItem} clearCart={clearCart} clearingCartLoading={clearingCartLoading} checkout={checkout} checkoutLoading={checkoutLoading} />
     </>
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import BrandsLayout from './BrandsLayout';
 
 export default async function Brands() {
     // get brands
@@ -11,7 +12,7 @@ export default async function Brands() {
         }
     })
     const { data: brands } = await response.json()
-    return (
-        <div>Brands</div>
-    )
+    return <>
+        <BrandsLayout brands={brands} />
+    </>
 }
