@@ -88,8 +88,9 @@ export default function Cart() {
             return checkoutApi(cartId, shippingAddress)
         },
         onSuccess: (data) => {
+            console.log(data);
             toast.success('checkout success')
-            window.location.href = data.session.url;
+            // window.location.href = data.session.url;
         },
         onError: (e) => {
             console.log('error from checkout: ', e);

@@ -23,12 +23,13 @@ export default function NavbarLayout({ cartData }) {
             {/* navbar */}
             <div className="container flex justify-between items-center">
                 <div className="brand">
-                    <Link className='flex items-center gap-1' href={'/'}>
+                    <Link onClick={() => { setMenuIsOpen(false) }} className='flex items-center gap-1' href={'/'}>
                         <span className='bg-linear-to-r from-indigo-800 to-purple-800 p-1.5 text-white rounded-md text-xl font-medium me-0.5 mb-1'><FaOpencart /></span>
                         <span className='text-2xl font-bold text-black italic'>SoCart</span>
                     </Link>
                 </div>
-                <div className="navLinks sm:flex items-center gap-4 text-md font-bold hidden">
+                {/* nav links */}
+                <div className="navLinks md:flex items-center gap-4 text-md font-bold hidden">
                     <Link href={'/products'} className={pathName.includes('/products') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
                         <span>Products</span>
                     </Link>
@@ -41,10 +42,14 @@ export default function NavbarLayout({ cartData }) {
                     <Link href={'/wishlist'} className={pathName.includes('/wishlist') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
                         <span>Wishlist</span>
                     </Link>
+                    <Link href={'/allorders'} className={pathName.includes('/allorders') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
+                        <span>All Orders</span>
+                    </Link>
                 </div>
+                {/* profile and cart */}
                 <div className="customization flex items-center gap-5 text-xl">
                     <Link href={'/cart'}>
-                        <span className='relative'>
+                        <span onClick={() => { setMenuIsOpen(false) }} className='relative'>
                             <FaOpencart className='text-2xl mt-0.5' />
                             {cartData?.numOfCartItems != null ? <span className='size-5 p-2 bg-linear-to-r from-indigo-800 to-purple-800 text-white rounded-full text-[10px] font-mono absolute -top-3 -right-3 flex justify-center items-center'>{cartData?.numOfCartItems}</span> : null}
                         </span>
@@ -66,23 +71,23 @@ export default function NavbarLayout({ cartData }) {
                             </DropdownMenuGroup>
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <FaBars className='text-2xl block sm:hidden cursor-pointer' onClick={() => { setMenuIsOpen(!menuIsOpen) }} />
+                    <FaBars className='text-2xl block md:hidden cursor-pointer' onClick={() => { setMenuIsOpen(!menuIsOpen) }} />
                 </div>
             </div>
             {/* hidden menu */}
             {menuIsOpen ?
-                <div className='container text-black block sm:hidden mt-5'>
+                <div className='container text-black block md:hidden mt-5'>
                     <div className="navLinks flex flex-col text-md font-medium">
-                        <Link href={'/products'} className={pathName.includes('/products') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
+                        <Link onClick={() => { setMenuIsOpen(false) }} href={'/products'} className={pathName.includes('/products') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
                             <span>Products</span>
                         </Link>
-                        <Link href={'/brands'} className={pathName.includes('/brands') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
+                        <Link onClick={() => { setMenuIsOpen(false) }} href={'/brands'} className={pathName.includes('/brands') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
                             <span>Brands</span>
                         </Link>
-                        <Link href={'/categories'} className={pathName.includes('/categories') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
+                        <Link onClick={() => { setMenuIsOpen(false) }} href={'/categories'} className={pathName.includes('/categories') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
                             <span>Categories</span>
                         </Link>
-                        <Link href={'/wishlist'} className={pathName.includes('/wishlist') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
+                        <Link onClick={() => { setMenuIsOpen(false) }} href={'/wishlist'} className={pathName.includes('/wishlist') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
                             <span>Wishlist</span>
                         </Link>
                     </div>
