@@ -90,6 +90,9 @@ export default function NavbarLayout({ cartData }) {
                         <Link onClick={() => { setMenuIsOpen(false) }} href={'/wishlist'} className={pathName.includes('/wishlist') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
                             <span>Wishlist</span>
                         </Link>
+                        <Link onClick={() => { setMenuIsOpen(false) }} href={'/allorders'} className={pathName.includes('/allorders') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
+                            <span>All Orders</span>
+                        </Link>
                     </div>
                 </div> : null
             }
