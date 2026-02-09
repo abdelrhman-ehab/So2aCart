@@ -1,35 +1,35 @@
 "use client"
 import Loading from "@/app/loading";
 import { Card } from "@/components/ui/card";
+import { userContext } from "@/Context/UserContext";
 import { useQuery } from "@tanstack/react-query"
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 export default function AllOrders() {
-    const [userId, setUserId] = useState(() => {
-        if (typeof window !== "undefined") {
-            return localStorage.getItem("SOCartUserId");
-        }
-        return null;
-    });
 
-    const getOrders = async (userId) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/orders/user/${userId}`,
+    const [cartOwnerId, setCartOwnerId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('cartOwnerId')
+        }
+        return null
+    })
+
+    const getOrders = async (cartOwnerId) => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/orders/user/${cartOwnerId}`,
             {
                 method: 'GET'
             }
         )
         const response = await res.json()
+        console.log(response);
         return response
     }
 
     const { data: allOrders } = useQuery({
-        queryKey: ['all-orders', userId],
-        queryFn: () => getOrders(userId),
-        enabled: !!userId
+        queryKey: ['all-orders', cartOwnerId],
+        queryFn: () => getOrders(cartOwnerId),
     })
-
-    console.log('all orders', allOrders);
 
     return <>
         {allOrders ?

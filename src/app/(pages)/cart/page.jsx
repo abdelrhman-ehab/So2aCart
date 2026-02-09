@@ -4,24 +4,15 @@ import { toast } from 'sonner';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { queryClient } from '@/providers/ReactQueryProvider';
 import CartLayout from './CartLayout';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { userContext } from '@/Context/UserContext';
 
 
 
 export default function Cart() {
     const [isRemovingItem, setIsRemovingItem] = useState(null)
     const [isUpdatingItem, setIsUpdatingItem] = useState(null)
-    // get cart data
-    const { data: cartData, isLoading: fetchingCartData } = useQuery({
-        queryKey: ["get-cart-data"],
-        queryFn: () => getApiData('cart'),
-        retry: 2,
-        retryDelay: 1000 * 2,
-        refetchOnWindowFocus: false
-    })
-
-    console.log(fetchingCartData)
-
+    const { cartData, fetchingCartData } = useContext(userContext)
 
     // updating cart item count
     const { mutate: updateCart } = useMutation({
