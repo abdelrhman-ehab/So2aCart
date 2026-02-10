@@ -3,7 +3,7 @@ import Products_Layout from './Products_Layout';
 
 export default async function Products() {
     // get products
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products`, {
+    const response = await fetch(`${process.env.API_URL}/products`, {
         next: {
             revalidate: 60
         }

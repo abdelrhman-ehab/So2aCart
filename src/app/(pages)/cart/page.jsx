@@ -1,13 +1,11 @@
 "use client"
-import { checkoutApi, clearCartApi, getApiData, removingDataFromApi, updateCartApi } from '@/lib/ApiRequests'
 import { toast } from 'sonner';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/providers/ReactQueryProvider';
 import CartLayout from './CartLayout';
 import { useContext, useState } from 'react';
 import { userContext } from '@/Context/UserContext';
-
-
+import { checkoutAction, clearCartAction, removeFromCartAction, updateCartAction } from '@/app/(pages)/products/_action/productActions.action';
 
 export default function Cart() {
     const [isRemovingItem, setIsRemovingItem] = useState(null)
@@ -18,7 +16,7 @@ export default function Cart() {
     const { mutate: updateCart } = useMutation({
         mutationFn: ({ productId, count }) => {
             setIsUpdatingItem(productId)
-            return updateCartApi(productId, count)
+            return updateCartAction(productId, count)
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
@@ -35,10 +33,10 @@ export default function Cart() {
     })
 
     // removing cart item
-    const { mutate: removeFromCart, isPending: removingLoading } = useMutation({
+    const { mutate: removeFromCart } = useMutation({
         mutationFn: (productId) => {
             setIsRemovingItem(productId)
-            return removingDataFromApi('cart', productId)
+            return removeFromCartAction(productId)
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
@@ -47,24 +45,23 @@ export default function Cart() {
             toast.success('Item Removed Successfully', { position: 'top-center' })
             setIsRemovingItem(null)
         },
-        onError: () => {
-            toast.error('Faild To Remove Item', { position: 'top-center' })
+        onError: (e) => {
+            toast.error('Faild To Remove Item' + e.message, { position: 'top-center' })
             setIsRemovingItem(null)
         }
     })
 
-
     // clear cart
     const { mutate: clearCart, isPending: clearingCartLoading } = useMutation({
-        mutationFn: () => clearCartApi(),
+        mutationFn: () => clearCartAction(),
         onSuccess: async () => {
             await queryClient.invalidateQueries({
                 queryKey: ['get-cart-data']
             })
             toast.success('Cart Now Is Empty', { position: 'top-center' })
         },
-        onError: () => {
-            toast.error('Faild To Clear Cart', { position: 'top-center' })
+        onError: (e) => {
+            toast.error(e.message || 'Faild To Clear Cart', { position: 'top-center' })
         }
     })
 
@@ -76,7 +73,7 @@ export default function Cart() {
                 phone: checkoutPhoneNumber,
                 city: checkoutCity
             }
-            return checkoutApi(cartId, shippingAddress)
+            return checkoutAction(cartId, shippingAddress)
         },
         onSuccess: (data) => {
             console.log(data);
@@ -84,7 +81,7 @@ export default function Cart() {
             window.location.href = data.session.url;
         },
         onError: (e) => {
-            console.log('error from checkout: ', e);
+            console.log(e.message || 'faild to checkout ');
             toast.error('checkout faild! please try again')
         }
     })

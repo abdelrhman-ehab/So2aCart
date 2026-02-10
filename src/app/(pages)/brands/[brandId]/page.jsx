@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default async function page({ params }) {
     const { brandId } = await params
     // get products of brand
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?brand=${brandId}`, { method: "GET" })
+    const res = await fetch(`${process.env.API_URL}/products?brand=${brandId}`, { method: "GET" })
     const response = await res.json()
     console.log(response);
 

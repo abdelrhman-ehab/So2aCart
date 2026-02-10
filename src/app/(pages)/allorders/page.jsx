@@ -1,7 +1,6 @@
 "use client"
 import Loading from "@/app/loading";
 import { Card } from "@/components/ui/card";
-import { userContext } from "@/Context/UserContext";
 import { useQuery } from "@tanstack/react-query"
 import Image from "next/image";
 import { useContext, useState } from "react";
@@ -16,7 +15,7 @@ export default function AllOrders() {
     })
 
     const getOrders = async (cartOwnerId) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/orders/user/${cartOwnerId}`,
+        const res = await fetch(`${process.env.API_URL}/orders/user/${cartOwnerId}`,
             {
                 method: 'GET'
             }

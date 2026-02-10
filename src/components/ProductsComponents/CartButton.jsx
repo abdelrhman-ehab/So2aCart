@@ -1,39 +1,25 @@
 "use client"
-import { addingDataToApi, removingDataFromApi } from '@/lib/ApiRequests'
 import { Button } from '../ui/button'
 import { FaOpencart } from 'react-icons/fa'
 import { toast } from "sonner"
 import { Loader2 } from 'lucide-react'
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '@/providers/ReactQueryProvider'
+import addToCartAction, { removeFromCartAction } from '../../app/(pages)/products/_action/productActions.action'
 
 
 export default function CartButton({ productId }) {
     // add item to cart
     const { mutate: addProductToCart, isPending: addingProductLoading } = useMutation({
-        mutationFn: (productId) => addingDataToApi('cart', productId),
+        mutationFn: (productId) => addToCartAction(productId),
         onSuccess: async () => {
             await queryClient.invalidateQueries({
                 queryKey: ["get-cart-data"]
             })
             toast.success("Item Added To Cart Successfully.", { position: "top-center" })
         },
-        onError: () => {
-            toast.error("Faild To Add Item To Cart.", { position: "top-center" })
-        }
-    })
-
-    // remove item from cart
-    const { mutate: removeProductFromCart, isPending: removingProductLoading } = useMutation({
-        mutationFn: (productId) => removingDataFromApi('cart', productId),
-        onSuccess: async () => {
-            await queryClient.invalidateQueries({
-                queryKey: ["get-cart-data"]
-            })
-            toast.success("Item Removed From Cart Successfully.", { position: "top-center" })
-        },
-        onError: () => {
-            toast.error("Faild To Remove Item from Cart.", { position: "top-center" })
+        onError: (e) => {
+            toast.error(e.message || "Faild To Add Item To Cart.", { position: "top-center" })
         }
     })
 

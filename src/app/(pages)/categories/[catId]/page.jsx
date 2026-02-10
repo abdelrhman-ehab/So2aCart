@@ -5,7 +5,7 @@ import React from 'react'
 export default async function page({ params }) {
     const { catId } = await params
     console.log('params', catId);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/products?category[in]=${catId}`, { method: "GET" })
+    const res = await fetch(`${process.env.API_URL}/products?category[in]=${catId}`, { method: "GET" })
     const response = await res.json()
 
     return <>
