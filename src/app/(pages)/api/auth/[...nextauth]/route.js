@@ -4,10 +4,10 @@ import CredentialsProvider from "next-auth/providers/credentials"
 const handler = NextAuth({
     providers: [
         CredentialsProvider({
-            name: 'credental',
+            name: 'credentials',
             credentials: {
                 email: {},
-                paswword: {}
+                password: {}
             },
             authorize: async (credentials) => {
                 const res = await fetch(`${process.env.API_URL}/auth/signin`, {
@@ -17,36 +17,42 @@ const handler = NextAuth({
                     },
                     body: JSON.stringify({
                         email: credentials?.email,
-                        password: credentials?.paswword
+                        password: credentials?.password
                     })
                 })
 
                 const response = await res.json()
+
                 if (res.ok && response.message === 'success') {
                     return {
                         id: response.user.email,
-                        user: response.user,
-                        token: response.token
+                        token: response.token,
+                        user: response.user
                     }
                 }
                 else {
-                    throw new Error(response.message || 'faild to login')
+                    throw new Error(response.message)
                 }
             }
         })
     ],
+
     callbacks: {
-        jwt: ({ token, user }) => {
+        jwt: ({ user, token }) => {
             if (user) {
-                token.user = user.user
-                token.token = user.token
+                token.token = user.token,
+                    token.user = user.user
             }
             return token
         },
-        session: ({ session, token }) => {
+        session: ({ token, session }) => {
             session.user = token.user
             return session
         }
+    },
+
+    pages: {
+        signIn: '/login'
     }
 })
 

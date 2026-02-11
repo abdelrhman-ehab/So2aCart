@@ -2,6 +2,7 @@ import React from 'react'
 import BrandsLayout from './BrandsLayout';
 
 export default async function Brands() {
+    console.log(process.env.API_URL);
     // get brands
     const response = await fetch(`${process.env.API_URL}/brands`, {
         headers: {
