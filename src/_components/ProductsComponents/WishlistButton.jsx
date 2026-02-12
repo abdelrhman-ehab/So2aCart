@@ -5,14 +5,25 @@ import { Heart, HeartCrack, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { removingDataFromApi } from '@/lib/ApiRequests'
 import { queryClient } from '@/providers/ReactQueryProvider'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { addToWishlistAction, removeFromWishliostAction } from '../../app/(pages)/products/_action/productActions.action'
+import { useSession } from 'next-auth/react'
 
 export default function WishlistButton({ productId }) {
   const pathname = usePathname()
+  const session = useSession()
+  const router = useRouter()
   // add item to wishlist
   const { mutate: addProductToWishlist, isPending: addingProductLoading } = useMutation({
-    mutationFn: (productId) => addToWishlistAction(productId),
+    mutationFn: (productId) => {
+      if (session.status === 'authenticated') {
+        return addToWishlistAction(productId)
+      }
+      else {
+        router.push('/login')
+        throw new Error('please login to add to wishlist')
+      }
+    },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ["get-wishlist-data"]
@@ -20,13 +31,21 @@ export default function WishlistButton({ productId }) {
       toast.success("Item Added To Wishlist Successfully.", { position: "top-center" })
     },
     onError: (e) => {
-      toast.error(e.message || "Faild To Add Item To Wishlist.", { position: "top-center" })
+      toast.error("Faild To Add Item To Wishlist. " + e.message, { position: "top-center" })
     }
   })
 
   // remove item from Wishlist
   const { mutate: removeProductFromWishlist, isPending: removingProductLoading } = useMutation({
-    mutationFn: (productId) => removeFromWishliostAction(productId),
+    mutationFn: (productId) => {
+      if (session.status === 'authenticated') {
+        return removeFromWishliostAction(productId)
+      }
+      else {
+        router.push('/login')
+        throw new Error('faild to remove item, please login')
+      }
+    },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ["get-wishlist-data"]

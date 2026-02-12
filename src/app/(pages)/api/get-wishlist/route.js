@@ -1,7 +1,13 @@
+import { decode } from "next-auth/jwt"
+import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ODExYjI4NjM4NDUwZWM5NjhjYzU5YiIsIm5hbWUiOiJBYmRlbHJobWFuIEVoYWIiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3MDE0MzQ5NiwiZXhwIjoxNzc3OTE5NDk2fQ.LUyeBibyxK9409Ht9Wb7J3qfBpG3yI4jJp_rDXlVWtE'
-
+const getToken = async () => {
+    const encoded_token = (await cookies()).get('next-auth.session-token').value
+    const { token } = await decode({ token: encoded_token, secret: process.env.NEXTAUTH_SECRET })
+    return token
+}
 export async function GET() {
+    const token = await getToken()
     const res = await fetch(`${process.env.API_URL}/wishlist`, {
         method: 'GET',
         headers: {

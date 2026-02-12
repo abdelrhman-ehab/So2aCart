@@ -22,6 +22,14 @@ export default function NavbarLayout({ cartData }) {
     const session = useSession()
     console.log('user session', session);
 
+    const [cartOwnerId, setCartOwnerId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('cartOwnerId')
+        }
+        return null
+    })
+
+
     return <>
         <nav className="bg-gray-200 py-4 sticky top-0 z-50 shadow">
             {/* navbar */}
@@ -51,8 +59,8 @@ export default function NavbarLayout({ cartData }) {
                     }
 
                     {session.status === "authenticated" &&
-                        <Link href={'/allorders'} className={pathName.includes('/allorders') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
-                            <span>All Orders</span>
+                        <Link href={`/orders/${cartOwnerId}`} className={pathName.includes('/orders') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
+                            <span>Orders</span>
                         </Link>
                     }
                 </div>
@@ -115,8 +123,8 @@ export default function NavbarLayout({ cartData }) {
                         </Link>
                         }
                         {session.status === 'authenticated' &&
-                            <Link onClick={() => { setMenuIsOpen(false) }} href={'/allorders'} className={pathName.includes('/allorders') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
-                                <span>All Orders</span>
+                            <Link onClick={() => { setMenuIsOpen(false) }} href={`/orders/${cartOwnerId}`} className={pathName.includes('/orders') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
+                                <span>Orders</span>
                             </Link>
                         }
                     </div>

@@ -6,12 +6,25 @@ import { Loader2 } from 'lucide-react'
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '@/providers/ReactQueryProvider'
 import addToCartAction, { removeFromCartAction } from '../../app/(pages)/products/_action/productActions.action'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 
+// add to cart
 export default function CartButton({ productId }) {
+    const session = useSession()
+    const router = useRouter()
     // add item to cart
     const { mutate: addProductToCart, isPending: addingProductLoading } = useMutation({
-        mutationFn: (productId) => addToCartAction(productId),
+        mutationFn: (productId) => {
+            if (session.status === 'authenticated') {
+                return addToCartAction(productId)
+            }
+            else {
+                router.push('/login')
+                throw new Error('please login to add to cart')
+            }
+        },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
                 queryKey: ["get-cart-data"]
@@ -19,7 +32,7 @@ export default function CartButton({ productId }) {
             toast.success("Item Added To Cart Successfully.", { position: "top-center" })
         },
         onError: (e) => {
-            toast.error(e.message || "Faild To Add Item To Cart.", { position: "top-center" })
+            toast.error("Faild To Add Item To Cart. " + e.message, { position: "top-center" })
         }
     })
 

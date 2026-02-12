@@ -11,7 +11,7 @@ export const getCartAPi = async () => {
     return response
 }
 
-
+// get wishlist
 export const getWishlistApi = async () => {
     const res = await fetch('http://localhost:3000/api/get-wishlist')
     const response = await res.json()
@@ -21,3 +21,5 @@ export const getWishlistApi = async () => {
     console.log(`get wishlist data: `, response);
     return response
 }
+
+

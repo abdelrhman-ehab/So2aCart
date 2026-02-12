@@ -6,12 +6,12 @@ export default async function Home() {
 
       {/* Hero Section */}
       <section className="bg-linear-to-r from-indigo-800 to-purple-800 rounded-lg text-white">
-        <div className="py-15 flex justify-center items-center gap-3 flex-col px-5">
+        <div className="py-15 flex justify-center items-center gap-5 flex-col px-5 w-fit mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold">Discover Your Style</h1>
           <p className="text-lg md:text-xl text-indigo-100">Shop the latest products from top brands at the best prices</p>
-          <div className="flex gap-5">
-            <Link href="/products" className="bg-black text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-900 transition">Shop Now</Link>
-            <Link href="/categories" className="bg-white text-indigo-600 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition">Explore Categories</Link>
+          <div className="flex flex-col sm:flex-row gap-3 flex-nowrap w-full">
+            <Link href="/products" className="w-3/4 mx-auto text-center bg-black text-white font-semibold px-8 py-3 rounded-lg hover:bg-black/80 transition">Shop Now</Link>
+            <Link href="/categories" className="w-3/4 mx-auto text-center bg-white text-indigo-600 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition">Explore Categories</Link>
           </div>
         </div>
       </section>

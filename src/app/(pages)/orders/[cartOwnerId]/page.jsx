@@ -1,39 +1,21 @@
-"use client"
 import Loading from "@/app/loading";
 import { Card } from "@/components/ui/card";
-import { useQuery } from "@tanstack/react-query"
 import Image from "next/image";
-import { useContext, useState } from "react";
 
-export default function AllOrders() {
+export default async function Orders({ params }) {
 
-    const [cartOwnerId, setCartOwnerId] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('cartOwnerId')
-        }
-        return null
+    const { cartOwnerId } = await params
+
+    const res = await fetch(`${process.env.API_URL}/orders/user/${cartOwnerId}`, {
+        method: "GET"
     })
 
-    const getOrders = async (cartOwnerId) => {
-        const res = await fetch(`${process.env.API_URL}/orders/user/${cartOwnerId}`,
-            {
-                method: 'GET'
-            }
-        )
-        const response = await res.json()
-        console.log(response);
-        return response
-    }
-
-    const { data: allOrders } = useQuery({
-        queryKey: ['all-orders', cartOwnerId],
-        queryFn: () => getOrders(cartOwnerId),
-    })
+    const orders = await res.json()
 
     return <>
-        {allOrders ?
+        {orders ?
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {allOrders?.map((order) => (
+                {orders?.map((order) => (
                     <Card key={order._id} className="p-4 space-y-2">
                         {/* Header */}
                         <div className="flex justify-between items-center">
