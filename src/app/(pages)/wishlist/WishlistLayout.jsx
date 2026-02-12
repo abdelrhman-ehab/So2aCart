@@ -1,5 +1,5 @@
 import Loading from '@/app/loading'
-import WishlistButton from '@/components/ProductsComponents/WishlistButton'
+import WishlistButton from '@/_components/ProductsComponents/WishlistButton'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Trash } from 'lucide-react'

@@ -9,7 +9,10 @@ export default async function Home() {
         <div className="py-15 flex justify-center items-center gap-3 flex-col px-5">
           <h1 className="text-4xl md:text-6xl font-bold">Discover Your Style</h1>
           <p className="text-lg md:text-xl text-indigo-100">Shop the latest products from top brands at the best prices</p>
-          <Link href="/products" className="bg-white text-indigo-600 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition">Shop Now</Link>
+          <div className="flex gap-5">
+            <Link href="/products" className="bg-black text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-900 transition">Shop Now</Link>
+            <Link href="/categories" className="bg-white text-indigo-600 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition">Explore Categories</Link>
+          </div>
         </div>
       </section>
 

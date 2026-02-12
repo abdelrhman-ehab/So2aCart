@@ -1,18 +1,17 @@
 "use client"
-import * as React from "react"
+import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
-
-
 import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
     CardFooter,
+    CardHeader,
 } from "@/components/ui/card"
 import {
     Field,
@@ -21,20 +20,25 @@ import {
     FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import { Loader2 } from "lucide-react"
 
-
+// login form schema
 const formSchema = z.object({
     email: z
         .email('invalid email')
         .nonempty('email is required'),
     password: z
         .string()
-        .min(6, "Password must be at least 6 characters")
         .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'invalid password')
 })
 
-export function LoginForm() {
+export default function LoginForm() {
     const router = useRouter()
+    const [loginError, setLoginError] = useState(null)
+    const [loginLoading, setLoginLoading] = useState(false)
+
+    // form resolver
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -43,22 +47,38 @@ export function LoginForm() {
         },
     })
 
+    // submit function using nextAuth
     async function onSubmit(data) {
-        const result = await signIn("credentials", {
+        setLoginLoading(true)
+        const response = await signIn("credentials", {
+            callbackUrl: '/products',
             email: data.email,
             password: data.password,
             redirect: false,
         })
-
-        if (result?.ok) {
-            router.push("/") // أو dashboard
-        } else {
+        console.log(response);
+        setLoginLoading(false)
+        // login success
+        if (response?.ok) {
+            setLoginError(null)
+            router.push("/")
+        }
+        // login faild
+        else {
+            setLoginError(response.error)
             toast.error("Invalid email or password", { position: 'top-center' })
         }
     }
 
     return (
         <Card className="w-full">
+            {loginError &&
+                <CardHeader className={'text-center'}>
+                    <h2 className="text-xl font-semibold text-red-800">{loginError}</h2>
+                </CardHeader>
+            }
+
+            {/* form fields */}
             <CardContent>
                 <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
@@ -117,6 +137,7 @@ export function LoginForm() {
                 </form>
             </CardContent>
 
+            {/* form actions */}
             <CardFooter>
                 <Field orientation="horizontal">
                     <Button
@@ -127,8 +148,8 @@ export function LoginForm() {
                         Reset
                     </Button>
 
-                    <Button type="submit" form="form-rhf-demo">
-                        Submit
+                    <Button disabled={loginLoading} type="submit" form="form-rhf-demo">
+                        {loginLoading ? <Loader2 className="animate-spin" /> : 'Submit'}
                     </Button>
                 </Field>
             </CardFooter>
