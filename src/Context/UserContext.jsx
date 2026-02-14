@@ -8,18 +8,25 @@ export const userContext = createContext()
 
 export default function UserContextProvider({ children }) {
     const session = useSession()
-    const { data: cartData, isLoading: fetchingCartData } = useQuery({
+    const { data: cartData, isLoading: fetchingCartData, error } = useQuery({
         queryKey: ["get-cart-data"],
         queryFn: () => getCartAPi(),
         retry: 2,
         enabled: session.status === 'authenticated'
     })
 
+    console.log('error cart is ', error);
+
+
+
     useEffect(() => {
         if (session.status === 'authenticated') {
             queryClient.invalidateQueries({
                 queryKey: ['get-cart-data']
             })
+
+            console.log('error cart is ', error);
+
         }
     }, [session.status])
 
