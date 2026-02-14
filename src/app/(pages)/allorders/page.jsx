@@ -1,4 +1,5 @@
 'use client'
+import Loading from '@/app/loading'
 import { usePathname } from 'next/navigation'
 import React, { useEffect } from 'react'
 
@@ -15,6 +16,6 @@ export default function AllOrders({ searchParams }) {
 
 
     return (
-        <div>AllOrders</div>
+        <Loading />
     )
 }

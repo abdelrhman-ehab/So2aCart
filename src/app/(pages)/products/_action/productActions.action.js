@@ -1,8 +1,6 @@
 'use server'
 import getToken from "@/lib/getToken";
 
-
-
 // /////////////////////////////////////////////// Cart Actions ///////////////////////////////////////////////////////////
 // add to cart action
 export default async function addToCartAction(productId) {

@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 import { signIn } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -39,6 +39,11 @@ export default function LoginForm() {
     const [loginError, setLoginError] = useState(null)
     const [loginLoading, setLoginLoading] = useState(false)
 
+    let searchParams = useSearchParams()
+    let callbackUrl = searchParams.get('callbackUrl')
+    console.log(callbackUrl);
+
+
     // form resolver
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -52,7 +57,7 @@ export default function LoginForm() {
     async function onSubmit(data) {
         setLoginLoading(true)
         const response = await signIn("credentials", {
-            callbackUrl: '/products',
+            callbackUrl: callbackUrl ?? '/',
             email: data.email,
             password: data.password,
             redirect: false,
@@ -62,7 +67,7 @@ export default function LoginForm() {
         // login success
         if (response?.ok) {
             setLoginError(null)
-            router.push("/")
+            router.push(callbackUrl ?? '/')
         }
         // login faild
         else {

@@ -77,7 +77,6 @@ export default function Cart() {
         },
         onSuccess: (data) => {
             console.log(data);
-            toast.success('checkout success')
             window.location.href = data.session.url;
         },
         onError: (e) => {

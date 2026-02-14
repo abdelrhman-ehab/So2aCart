@@ -10,7 +10,9 @@ export default async function proxy(req) {
 
     if (protectedPages.includes(pathname)) {
         if (!token) {
-            return NextResponse.redirect(new URL('/login', req.url))
+            let redirectUrl = new URL('/login', process.env.NEXTAUTH_URL);
+            redirectUrl.searchParams.set('callbackUrl', req.nextUrl.pathname)
+            return NextResponse.redirect(redirectUrl)
         }
         return NextResponse.next()
     }
@@ -21,5 +23,7 @@ export default async function proxy(req) {
         }
         return NextResponse.next()
     }
+
+    return NextResponse.next()
 
 }

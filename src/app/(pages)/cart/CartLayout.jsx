@@ -32,7 +32,7 @@ export default function CartLayout({ cartData, fetchingCartData, updateCart, isU
                after:rounded">
                 Shopping Cart
             </h1>
-            {cartData ?
+            {
                 cartData?.numOfCartItems === 0 ?
                     <div className='min-h-110 flex flex-col justify-center items-center'>
                         <span className='text-2xl font-semibold mb-2'>Your Cart Looks Empty</span>
@@ -109,10 +109,7 @@ export default function CartLayout({ cartData, fetchingCartData, updateCart, isU
                                     <Button disabled={clearingCartLoading} onClick={() => { clearCart() }} className='w-full bg-red-900 text-white cursor-pointer px-3 py-1 rounded-md hover:bg-white hover:text-red-900 hover:border hover:border-red-900'>{clearingCartLoading ? <Loader2 className='animate-spin' /> : 'Clear Cart'}</Button>
                                 </Card>
                             </div>
-                        </> :
-                <div className='min-h-[60vh] flex justify-center items-center font-bold text-3xl'>
-                    <p>Error Page</p>
-                </div>
+                        </>
             }
         </section>
 
