@@ -1,6 +1,6 @@
 // get cart data
 export const getCartAPi = async () => {
-    const res = await fetch(`/api/get-cart`)
+    const res = await fetch('http://localhost:3000/api/get-cart')
     const response = await res.json()
     if (!res.ok || response.statusMsg === 'error') {
         throw new Error(response.message || 'Failed Get Cart Data')
@@ -9,13 +9,9 @@ export const getCartAPi = async () => {
     return response
 }
 
-
-console.log(process.env.NEXTAUTH_URL);
-
-
 // get wishlist
 export const getWishlistApi = async () => {
-    const res = await fetch(`/api/get-wishlist`)
+    const res = await fetch('http://localhost:3000/api/get-wishlist')
     const response = await res.json()
     if (!res.ok || response.statusMsg === 'error') {
         throw new Error(response.message || 'Failed Get Cart Data')

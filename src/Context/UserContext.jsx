@@ -23,7 +23,6 @@ export default function UserContextProvider({ children }) {
         }
     }, [session.status])
 
-    // cartData?.data?.cartOwner && localStorage.setItem('cartOwnerId', cartData?.data?.cartOwner)
 
     useEffect(() => {
         if (cartData?.data?.cartOwner) {
