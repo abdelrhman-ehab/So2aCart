@@ -2,11 +2,14 @@ import { decode } from "next-auth/jwt";
 import { cookies } from "next/headers";
 
 export default async function getToken() {
-    const cookieStore = (await cookies()).get('next-auth.session-token')?.value
+    const cookieStore = await cookies()
 
-    if (!cookieStore) {
+    const token = cookieStore.get('next-auth.session-token')?.value || cookieStore.get('__Secure-next-auth.session-token')?.value
+
+    if (!token) {
         return null
     }
-    const decodedToken = await decode({ token: cookieStore, secret: process.env.NEXTAUTH_SECRET })
+
+    const decodedToken = await decode({ token: token, secret: process.env.NEXTAUTH_SECRET })
     return decodedToken
 }
