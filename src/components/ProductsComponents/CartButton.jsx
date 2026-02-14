@@ -1,5 +1,5 @@
 "use client"
-import { Button } from '../../components/ui/button'
+import { Button } from '../ui/button'
 import { FaOpencart } from 'react-icons/fa'
 import { toast } from "sonner"
 import { Loader2 } from 'lucide-react'

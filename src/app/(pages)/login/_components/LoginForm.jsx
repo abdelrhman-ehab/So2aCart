@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
+import Link from "next/link"
 
 // login form schema
 const formSchema = z.object({
@@ -98,7 +99,7 @@ export default function LoginForm() {
                                         id="email"
                                         aria-invalid={fieldState.invalid}
                                         placeholder="Enter Your Email"
-                                        autoComplete="off"
+                                        autoComplete="on"
                                     />
 
                                     {fieldState.invalid && (
@@ -140,17 +141,21 @@ export default function LoginForm() {
             {/* form actions */}
             <CardFooter>
                 <Field orientation="horizontal">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => form.reset()}
-                    >
-                        Reset
-                    </Button>
+                    <div className="me-2">
 
-                    <Button disabled={loginLoading} type="submit" form="form-rhf-demo">
-                        {loginLoading ? <Loader2 className="animate-spin" /> : 'Submit'}
-                    </Button>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => form.reset()}
+                        >
+                            Reset
+                        </Button>
+
+                        <Button disabled={loginLoading} type="submit" form="form-rhf-demo">
+                            {loginLoading ? <Loader2 className="animate-spin" /> : 'Submit'}
+                        </Button>
+                    </div>
+                    <Link href={'/register'} className="text-blue-950 underline">Register</Link>
                 </Field>
             </CardFooter>
         </Card>

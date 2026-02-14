@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button"
 import RegisterAction from "../RegisterAction/registerAction"
 import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
+import Link from "next/link"
 
 // register schema
 const formSchema = z.object({
@@ -65,7 +66,6 @@ export default function RegisterForm() {
         setregisterLoading(true)
         const response = await RegisterAction(data)
         setregisterLoading(false)
-        console.log(response);
 
         if (response.statusMsg === 'fail') {
             setregisterError(response.message)
@@ -211,17 +211,20 @@ export default function RegisterForm() {
             {/* registeration actions */}
             <CardFooter>
                 <Field orientation="horizontal">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => form.reset()}
-                    >
-                        Reset
-                    </Button>
+                    <div className="me-2">
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => form.reset()}
+                        >
+                            Reset
+                        </Button>
 
-                    <Button type="submit" form="form-rhf-demo" disabled={registerLoading}>
-                        {registerLoading ? <Loader2 className="animate-spin" /> : 'Submit'}
-                    </Button>
+                        <Button type="submit" form="form-rhf-demo" disabled={registerLoading}>
+                            {registerLoading ? <Loader2 className="animate-spin" /> : 'Submit'}
+                        </Button>
+                    </div>
+                    <Link href={'/login'} className="text-blue-950 underline">Login</Link>
                 </Field>
             </CardFooter>
         </Card>

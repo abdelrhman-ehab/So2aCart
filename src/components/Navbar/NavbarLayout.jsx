@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CgProfile } from "react-icons/cg";
 import { FaOpencart } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
@@ -21,14 +21,6 @@ export default function NavbarLayout({ cartData }) {
     const pathName = usePathname()
     const session = useSession()
     console.log('user session', session);
-
-    const [cartOwnerId, setCartOwnerId] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('cartOwnerId')
-        }
-        return null
-    })
-
 
     return <>
         <nav className="bg-gray-200 py-4 sticky top-0 z-50 shadow">
@@ -59,7 +51,7 @@ export default function NavbarLayout({ cartData }) {
                     }
 
                     {session.status === "authenticated" &&
-                        <Link href={`/orders/${cartOwnerId}`} className={pathName.includes('/orders') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
+                        <Link href={`/allorders/${localStorage.getItem('cartOwnerId')}`} className={pathName.includes('/allorders') ? 'bg-linear-to-r from-indigo-800 to-purple-800 p-2 text-white rounded-md' : 'hover:text-indigo-700'}>
                             <span>Orders</span>
                         </Link>
                     }
@@ -90,7 +82,7 @@ export default function NavbarLayout({ cartData }) {
                                         <DropdownMenuItem className={'bg-red-800 text-white focus:bg-red-800 focus:text-white mt-2 cursor-pointer'} onClick={() => {
                                             signOut({
                                                 callbackUrl: '/'
-                                            })
+                                            }); localStorage.removeItem('cartOwnerId')
                                         }}>Logout</DropdownMenuItem>
                                     </> :
                                     <>
@@ -123,7 +115,7 @@ export default function NavbarLayout({ cartData }) {
                         </Link>
                         }
                         {session.status === 'authenticated' &&
-                            <Link onClick={() => { setMenuIsOpen(false) }} href={`/orders/${cartOwnerId}`} className={pathName.includes('/orders') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
+                            <Link onClick={() => { setMenuIsOpen(false) }} href={`/allorders/${localStorage.getItem('cartOwnerId')}`} className={pathName.includes('/allorders') ? 'bg-linear-to-r from-indigo-600 to-purple-600 p-2 text-white rounded-md text-center' : 'p-2 text-center'}>
                                 <span>Orders</span>
                             </Link>
                         }

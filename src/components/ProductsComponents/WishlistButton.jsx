@@ -1,6 +1,6 @@
 "use client"
 import { useMutation } from '@tanstack/react-query'
-import { Button } from '../../components/ui/button'
+import { Button } from '../ui/button'
 import { Heart, HeartCrack, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { removingDataFromApi } from '@/lib/ApiRequests'

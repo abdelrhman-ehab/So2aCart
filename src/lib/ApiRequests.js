@@ -7,7 +7,7 @@ export const getCartAPi = async () => {
     if (!res.ok || response.statusMsg === 'error') {
         throw new Error(response.message || 'Failed Get Cart Data')
     }
-    console.log(`get cart data: `, response);
+    console.log(`get cart data test: `, response);
     return response
 }
 

@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { Card } from "@/components/ui/card"
 import { IoStarSharp } from "react-icons/io5";
 import Loading from '@/app/loading';
-import WishlistButton from '@/_components/ProductsComponents/WishlistButton';
-import CartButton from '@/_components/ProductsComponents/CartButton';
+import WishlistButton from '@/components/ProductsComponents/WishlistButton';
+import CartButton from '@/components/ProductsComponents/CartButton';
 
 export default function Products_Layout({ products }) {
     return <>
