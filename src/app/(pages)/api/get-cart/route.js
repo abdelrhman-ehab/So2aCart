@@ -1,23 +1,11 @@
-import { decode } from "next-auth/jwt"
-import { cookies } from "next/headers"
+import getToken from "@/lib/getToken";
 import { NextResponse } from "next/server"
 
-const getToken = async () => {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('next-auth.session-token')?.value ||
-        cookieStore.get('__Secure-next-auth.session-token')?.value;
-
-    if (!token) {
-        return null;
-    }
-
-    const decoded = await decode({ token, secret: process.env.NEXTAUTH_SECRET })
-    return decoded?.token
-}
 
 export async function GET() {
     try {
-        const token = await getToken();
+        const tokenBody = await getToken();
+        const token = tokenBody?.token
 
         if (!token) {
             return NextResponse.json(

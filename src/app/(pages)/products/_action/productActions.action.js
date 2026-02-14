@@ -1,18 +1,15 @@
 'use server'
-import { decode } from "next-auth/jwt"
-import { cookies } from "next/headers"
+import getToken from "@/lib/getToken";
 
-// get token
-const getToken = async () => {
-  const encoded_token = (await cookies()).get('next-auth.session-token').value
-  const { token } = await decode({ token: encoded_token, secret: process.env.NEXTAUTH_SECRET })
-  return token
-}
+
 
 // /////////////////////////////////////////////// Cart Actions ///////////////////////////////////////////////////////////
 // add to cart action
 export default async function addToCartAction(productId) {
-  const token = await getToken()
+
+  const tokenBody = await getToken();
+  const token = tokenBody?.token
+
   const res = await fetch(`${process.env.API_URL}/cart`,
     {
       method: 'POST',
@@ -34,7 +31,9 @@ export default async function addToCartAction(productId) {
 
 // remove from cart action
 export const removeFromCartAction = async (productId) => {
-  const token = await getToken()
+  const tokenBody = await getToken();
+  const token = tokenBody?.token
+
   const res = await fetch(`${process.env.API_URL}/cart/${productId}`,
     {
       method: 'DELETE',
@@ -53,7 +52,9 @@ export const removeFromCartAction = async (productId) => {
 
 // update cart action
 export const updateCartAction = async (productId, count) => {
-  const token = await getToken()
+  const tokenBody = await getToken();
+  const token = tokenBody?.token
+
   const res = await fetch(`${process.env.API_URL}/cart/${productId}`,
     {
       method: 'PUT',
@@ -76,7 +77,9 @@ export const updateCartAction = async (productId, count) => {
 
 // clearing cart action
 export const clearCartAction = async () => {
-  const token = await getToken()
+  const tokenBody = await getToken();
+  const token = tokenBody?.token
+
   const res = await fetch(`${process.env.API_URL}/cart`,
     {
       method: 'DELETE',
@@ -94,7 +97,9 @@ export const clearCartAction = async () => {
 
 // checkout action
 export const checkoutAction = async (cartId, shippingAddress) => {
-  const token = await getToken()
+  const tokenBody = await getToken();
+  const token = tokenBody?.token
+
   const res = await fetch(`${process.env.API_URL}/orders/checkout-session/${cartId}?url=http://localhost:3000`,
     {
       method: 'POST',
@@ -119,7 +124,9 @@ export const checkoutAction = async (cartId, shippingAddress) => {
 
 // add to wishlist action
 export async function addToWishlistAction(productId) {
-  const token = await getToken()
+  const tokenBody = await getToken();
+  const token = tokenBody?.token
+
   const res = await fetch(`${process.env.API_URL}/wishlist`,
     {
       method: 'POST',
@@ -141,7 +148,9 @@ export async function addToWishlistAction(productId) {
 
 // remove from wishlist action
 export const removeFromWishliostAction = async (productId) => {
-  const token = await getToken()
+  const tokenBody = await getToken();
+  const token = tokenBody?.token
+
   const res = await fetch(`${process.env.API_URL}/wishliost/${productId}`,
     {
       method: 'DELETE',
