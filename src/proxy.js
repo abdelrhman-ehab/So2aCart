@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const protectedPages = ['/cart', '/allorders', '/wishlist', '/profile']
 const authPages = ['/login', '/register']
 
-export default async function middleware(req) {
+export default async function proxy(req) {
     const token = await getToken({ req })
     const { pathname } = req.nextUrl
 

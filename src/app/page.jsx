@@ -1,7 +1,10 @@
+import getToken from "@/lib/getToken";
 import Link from "next/link";
 
 export default async function Home() {
 
+  const token = await getToken()
+  console.log('token is', token?.token)
 
   return (
     <main className="min-h-screen bg-gray-50">
