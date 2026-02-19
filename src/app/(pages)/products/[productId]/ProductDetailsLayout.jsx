@@ -39,7 +39,7 @@ export default function ProductDetailsLayout({ product, productId }) {
                         <p>sold: ({product.sold})</p>
                     </div>
                     <p className="text-lg font-medium">Price: <span className="text-red-800">{product.price}$</span></p>
-                    <div className='flex items-center gap-2'>
+                    <div className='flex items-center gap-2 flex-col sm:flex-row'>
                         <CartButton productId={productId} />
                         <WishlistButton productId={productId} />
                     </div>

@@ -60,8 +60,8 @@ export default function WishlistButton({ productId }) {
 
   return <>
     {pathname === '/wishlist' ?
-      <Button disabled={removingProductLoading} onClick={() => { removeProductFromWishlist(productId) }} className="cursor-pointer w-full bg-red-950 hover:bg-red-900" > {removingProductLoading ? null : <HeartCrack />} {removingProductLoading ? <Loader2 className='animate-spin' /> : 'Remove From Wishlist'}</Button> :
-      <Button disabled={addingProductLoading} onClick={() => { addProductToWishlist(productId) }} className="cursor-pointer w-full" > {addingProductLoading ? null : <Heart />} {addingProductLoading ? <Loader2 className='animate-spin' /> : 'Add To Wishlist'}</Button>
+      <Button disabled={removingProductLoading} onClick={() => { removeProductFromWishlist(productId) }} className="cursor-pointer w-full bg-red-950 hover:bg-red-900 shrink" > {removingProductLoading ? null : <HeartCrack />} {removingProductLoading ? <Loader2 className='animate-spin' /> : 'Remove From Wishlist'}</Button> :
+      <Button disabled={addingProductLoading} onClick={() => { addProductToWishlist(productId) }} className="cursor-pointer w-full shrink" > {addingProductLoading ? null : <Heart />} {addingProductLoading ? <Loader2 className='animate-spin' /> : 'Add To Wishlist'}</Button>
     }
 
   </>
