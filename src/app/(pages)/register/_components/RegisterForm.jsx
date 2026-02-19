@@ -211,7 +211,7 @@ export default function RegisterForm() {
             {/* registeration actions */}
             <CardFooter>
                 <Field orientation="horizontal">
-                    <div className="me-2">
+                    <div className="me-2 space-x-2">
                         <Button
                             type="button"
                             variant="outline"

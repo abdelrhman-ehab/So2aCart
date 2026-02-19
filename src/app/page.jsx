@@ -1,98 +1,97 @@
 import Link from "next/link";
 
-export default async function Home() {
-
+export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50">
 
-      {/* Hero Section */}
-      <section className="bg-linear-to-r from-indigo-800 to-purple-800 rounded-lg text-white">
-        <div className="py-15 flex justify-center items-center gap-5 flex-col px-5 w-fit mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold">Discover Your Style</h1>
-          <p className="text-lg md:text-xl text-indigo-100">Shop the latest products from top brands at the best prices</p>
-          <div className="flex flex-col sm:flex-row gap-3 flex-nowrap w-full">
-            <Link href="/products" className="w-3/4 mx-auto text-center bg-black text-white font-semibold px-8 py-3 rounded-lg hover:bg-black/80 transition">Shop Now</Link>
-            <Link href="/categories" className="w-3/4 mx-auto text-center bg-white text-indigo-600 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition">Explore Categories</Link>
+      {/* HERO */}
+      <section className="bg-linear-to-r from-indigo-700 to-purple-700 text-white rounded-lg">
+        <div className="py-20 text-center px-6 max-w-3xl mx-auto flex flex-col gap-3">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Shop Smarter. Live Better.
+          </h1>
+          <p className="text-lg md:text-xl text-indigo-100 mb-8">
+            Everything you need in one place — fast, simple, and reliable shopping experience.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/products"
+              className="bg-black px-8 py-3 rounded-lg font-semibold hover:bg-black/80 transition mx-auto w-full sm:w[75%] md:w-[50%]"
+            >
+              Browse Products
+            </Link>
+
+            <Link
+              href="/categories"
+              className="bg-white text-indigo-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition mx-auto w-full sm:w[75%] md:w-[50%]"
+            >
+              View Categories
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="container mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-center mb-10">
-          Shop by Category
-        </h2>
+      {/* BRANDS */}
+      <section className="container mx-auto px-6 py-16 text-center flex flex-col gap-3">
+        <h2 className="text-3xl font-bold mb-4">Brands</h2>
+        <p className="text-gray-600 mb-6">
+          Discover top brands and trusted names in the market.
+        </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {["Men", "Women", "Electronics", "Accessories"].map((cat) => (
-            <div
-              key={cat}
-              className="bg-white rounded-xl shadow hover:shadow-lg transition p-6 text-center cursor-pointer"
-            >
-              <div className="text-4xl mb-4">🛍️</div>
-              <h3 className="font-semibold text-lg">{cat}</h3>
-            </div>
-          ))}
-        </div>
+        <Link
+          href="/brands"
+          className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition mx-auto w-full sm:w[75%] md:w-[50%]"
+        >
+          View Brands
+        </Link>
       </section>
 
-      {/* Featured Products */}
-      <section className="bg-white py-16">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-10">
-            Featured Products
-          </h2>
+      {/* CART */}
+      <section className="bg-white py-16 text-center flex flex-col gap-3">
+        <h2 className="text-3xl font-bold mb-4">Your Cart</h2>
+        <p className="text-gray-600 mb-6">
+          Review your selected items and proceed to checkout بسهولة.
+        </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((item) => (
-              <div
-                key={item}
-                className="border rounded-xl p-4 hover:shadow-lg transition"
-              >
-                <div className="h-40 bg-gray-100 rounded mb-4"></div>
-                <h3 className="font-semibold mb-2">Product Name</h3>
-                <p className="text-indigo-600 font-bold mb-3">$99.99</p>
-                <button className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">
-                  Add to Cart
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Link
+          href="/cart"
+          className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition mx-auto w-full sm:w[75%] md:w-[50%]"
+        >
+          Go to Cart
+        </Link>
       </section>
 
-      {/* Brands */}
-      <section className="container mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-center mb-10">
-          Top Brands
-        </h2>
+      {/* WISHLIST */}
+      <section className="container mx-auto px-6 py-16 text-center flex flex-col gap-3">
+        <h2 className="text-3xl font-bold mb-4">Wishlist</h2>
+        <p className="text-gray-600 mb-6">
+          Save your favorite products and come back to them anytime.
+        </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6 items-center">
-          {[1, 2, 3, 4, 5, 6].map((brand) => (
-            <div
-              key={brand}
-              className="bg-white shadow rounded-lg p-4 text-center"
-            >
-              <span className="font-semibold">Brand</span>
-            </div>
-          ))}
-        </div>
+        <Link
+          href="/wishlist"
+          className="inline-block bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700 transition mx-auto w-full sm:w[75%] md:w-[50%]"
+        >
+          View Wishlist
+        </Link>
       </section>
 
       {/* CTA */}
       <section className="bg-indigo-600 text-white rounded-lg">
-        <div className="py-15 flex justify-center items-center gap-3 flex-col px-5">
-          <h2 className="text-3xl font-bold">
-            Ready to Start Shopping?
+        <div className="py-20 text-center px-6 flex flex-col gap-3">
+          <h2 className="text-3xl font-bold mb-4">
+            Start Your Shopping Journey Now
           </h2>
-          <p className="text-indigo-100">
-            Browse all products and enjoy a smooth shopping experience
+          <p className="text-indigo-100 mb-6">
+            Fast, secure, and built for you.
           </p>
+
           <Link
             href="/products"
-            className="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+            className="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition mx-auto w-full sm:w[75%] md:w-[50%]"
           >
-            Explore Products
+            Get Started
           </Link>
         </div>
       </section>

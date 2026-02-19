@@ -10,7 +10,7 @@ export default function Footer() {
                 {/* Brand */}
                 <div>
                     <h2 className="text-2xl font-bold text-white mb-4">
-                        Shop<span className="text-indigo-600">Now</span>
+                        So<span className="text-indigo-600">Cart</span>
                     </h2>
                     <p className="text-sm leading-relaxed">
                         Your one-stop destination for quality products, top brands,
@@ -26,6 +26,7 @@ export default function Footer() {
                         <li><Link href="/categories" className="hover:text-white">Categories</Link></li>
                         <li><Link href="/brands" className="hover:text-white">Brands</Link></li>
                         <li><Link href="/cart" className="hover:text-white">Cart</Link></li>
+                        <li><Link href="/wishlist" className="hover:text-white">Wishlist</Link></li>
                     </ul>
                 </div>
 

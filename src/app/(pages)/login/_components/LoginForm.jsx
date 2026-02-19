@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 import { signIn } from "next-auth/react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -35,13 +35,11 @@ const formSchema = z.object({
 })
 
 export default function LoginForm() {
-    const router = useRouter()
     const [loginError, setLoginError] = useState(null)
     const [loginLoading, setLoginLoading] = useState(false)
 
     let searchParams = useSearchParams()
     let callbackUrl = searchParams.get('callbackUrl')
-    console.log(callbackUrl);
 
 
     // form resolver
@@ -67,7 +65,6 @@ export default function LoginForm() {
         // login success
         if (response?.ok) {
             setLoginError(null)
-            router.push(callbackUrl ?? '/')
         }
         // login faild
         else {
@@ -146,7 +143,7 @@ export default function LoginForm() {
             {/* form actions */}
             <CardFooter>
                 <Field orientation="horizontal">
-                    <div className="me-2">
+                    <div className="me-2 space-x-2">
 
                         <Button
                             type="button"

@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CgProfile } from "react-icons/cg";
 import { FaOpencart } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
