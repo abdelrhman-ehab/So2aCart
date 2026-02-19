@@ -23,7 +23,7 @@ export default function WishlistLayout({ wishlist, WishlistFetching }) {
             Wishlist
         </h1>
         {
-            wishlist.count === 0 ?
+            wishlist?.count === 0 ?
                 <div className='min-h-110 flex flex-col justify-center items-center'>
                     <span className='text-2xl font-semibold mb-2'>Your Wishlist Looks Empty</span>
                     <Button className={'bg-linear-to-r from-indigo-800 to-purple-800 hover:from-indigo-700 hover:to-purple-700 transition-colors duration-300'} asChild><Link href={'/products'}>Explore Products</Link></Button>
